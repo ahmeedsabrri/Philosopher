@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 02:01:28 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/20 04:56:43 by asabri           ###   ########.fr       */
+/*   Updated: 2023/05/20 07:01:14 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_data *parsing(t_data *data, char **str,int size)
 {
     int i;
+    
     i = 1;
     while (i < size)
     {

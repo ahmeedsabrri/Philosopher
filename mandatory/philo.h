@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 02:01:13 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/20 04:57:48 by asabri           ###   ########.fr       */
+/*   Updated: 2023/05/22 04:50:08 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <pthread.h>
 
 typedef struct s_philos
 {
