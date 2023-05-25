@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 02:01:13 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/22 04:50:08 by asabri           ###   ########.fr       */
+/*   Updated: 2023/05/25 18:37:39 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
-
-typedef struct s_philos
-{
-    
-    struct s_philos *next;
-}               t_philos;
-
+# include <sys/time.h>
+# include <stdbool.h>
 typedef struct s_data
 {
     int numb_philos;
@@ -31,9 +26,27 @@ typedef struct s_data
     int tm_toeat;
     int tm_tosleep;
     int numb_to_eat;
+    pthread_mutex_t print;
+    pthread_mutex_t meal;
+    unsigned long start_time;
 }               t_data;
+
+typedef struct s_philos
+{
+    int id;
+    pthread_t th;
+    unsigned long last_time_eat;
+    int numb_meals;
+    pthread_mutex_t *fork;
+    pthread_mutex_t *next_fork;
+    t_data *data;
+}               t_philos;
 
 
 int	ft_atoi(char *str);
 t_data *parsing(t_data *data, char **str,int size);
+t_philos **fill_philo(t_data *data,pthread_mutex_t *forks);
+void monitor_philos(t_philos **philos);
+unsigned long gettimeday();
+void	ft_sleep( unsigned long timetodo);
 #endif // !PHILO_H
