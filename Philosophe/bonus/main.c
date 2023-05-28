@@ -5,23 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 02:31:26 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/28 11:23:40 by asabri           ###   ########.fr       */
+/*   Created: 2023/05/26 13:35:36 by asabri            #+#    #+#             */
+/*   Updated: 2023/05/28 17:53:13 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void ff()
-{
-    system("leaks philo");
-}
 int main(int ac, char **av)
 {
     t_data *data;
-    pthread_mutex_t *forks;
     t_philos **philos;
     int i;
+    int status;
 
     //atexit(ff);
     data = malloc(sizeof(t_data));
@@ -34,13 +30,25 @@ int main(int ac, char **av)
         data = parsing(data,av,ac);
         if (!data)
             return (write(2,"Error\n", 7), 0);
-        forks = malloc(sizeof(pthread_mutex_t) * data->numb_philos);
-        philos = fill_philo(data, forks);
+        philos = fill_philo(data);
+        i = -1;
+        while(++i < data->numb_philos)
+        {
+            philos[i]->pid = fork();
+            if (!philos[i]->pid)
+            {
+                monitor_philos(philos[i]);
+                exit(0);
+            }   
+        }
         i = -1;
         while (++i < data->numb_philos)
-            pthread_mutex_init(&forks[i],NULL);
-        monitor_philos(philos);
+        {
+            waitpid(0,&status,0);
+            if (WEXITSTATUS(status) == 1)
+                break;
+        }
+        kill(0,SIGINT);
     }
-    destroy(philos);
     return 0;
 }
