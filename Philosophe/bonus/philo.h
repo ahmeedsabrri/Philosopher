@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:19:48 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/28 17:14:26 by asabri           ###   ########.fr       */
+/*   Updated: 2023/05/25 22:44:15 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 #include <semaphore.h>
 #include <signal.h>
+#include <fcntl.h>
 
 typedef struct s_data
 {
