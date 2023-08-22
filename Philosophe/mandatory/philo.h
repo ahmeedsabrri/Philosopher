@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 02:01:13 by asabri            #+#    #+#             */
-/*   Updated: 2023/08/22 09:00:54 by asabri           ###   ########.fr       */
+/*   Updated: 2023/08/22 10:56:32 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void			printmessege(t_philos *ph, char *msg);
 void			eat(t_philos *philo);
 int				check_meal(t_philos **ph);
 void			destroy(t_philos **philos);
-void ft_free(t_data *data);
 #endif // !PHILO_H

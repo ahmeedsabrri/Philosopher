@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:35:36 by asabri            #+#    #+#             */
-/*   Updated: 2023/08/20 13:16:41 by asabri           ###   ########.fr       */
+/*   Updated: 2023/08/22 10:56:57 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	create_processes(t_philos **philos, t_data *data)
 int	main(int ac, char **av)
 {
 	t_data		*data;
+	t_data		*parser_data;
 	t_philos	**philos;
 
 	if (ac < 5 || ac > 6)
@@ -94,9 +95,10 @@ int	main(int ac, char **av)
 		data = malloc(sizeof(t_data));
 		if (!data)
 			return (0);
-		data = parsing(data, av, ac);
-		if (!data)
-			return (write(2, "Error\n", 7), 0);
+		parser_data = parsing(data, av, ac);
+		if (!parser_data)
+			return (write(2, "Error\n", 7), free(data), 0);
+		data = parser_data;
 		philos = fill_philo(data);
 		create_processes(philos, data);
 	}
