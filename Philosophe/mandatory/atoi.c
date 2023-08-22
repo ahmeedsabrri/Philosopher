@@ -6,7 +6,7 @@
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 02:39:42 by asabri            #+#    #+#             */
-/*   Updated: 2023/05/25 15:46:02 by asabri           ###   ########.fr       */
+/*   Updated: 2023/08/11 22:15:08 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@ int	ft_isdigit(char *c)
 	return (0);
 }
 
-
 int	ft_atoi(char *str)
 {
 	long	res;
-	int	sign;
+	int		sign;
 
 	res = 0;
 	sign = 1;
-	
-	
 	while (*str == 32)
 		str++;
 	if (*str == '-')
@@ -51,7 +48,7 @@ int	ft_atoi(char *str)
 		res = res * 10 + *str - '0';
 		str++;
 		if (res > 2147483647)
-			return (-1);	
+			return (-1);
 	}
 	if (res == 0)
 		return (-1);

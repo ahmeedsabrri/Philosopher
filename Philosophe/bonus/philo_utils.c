@@ -5,12 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asabri <asabri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 11:02:27 by asabri            #+#    #+#             */
-/*   Updated: 2023/08/11 22:10:35 by asabri           ###   ########.fr       */
+/*   Created: 2023/08/14 13:24:40 by asabri            #+#    #+#             */
+/*   Updated: 2023/08/14 16:18:39 by asabri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+t_philos	**fill_philo(t_data *data)
+{
+	t_philos	**philos;
+	int			i;
+
+	i = -1;
+	philos = malloc(data->numb_philos * sizeof(t_philos *));
+	while (++i < data->numb_philos)
+	{
+		philos[i] = malloc(sizeof(t_philos));
+		philos[i]->data = data;
+		philos[i]->id = i + 1;
+		philos[i]->numb_meals = 0;
+	}
+	return (philos);
+}
 
 unsigned long	gettimeday(void)
 {
@@ -24,9 +41,9 @@ unsigned long	gettimeday(void)
 
 void	printmessege(t_philos *ph, char *msg)
 {
-	pthread_mutex_lock(&ph->data->print);
+	sem_wait(ph->data->print);
 	printf("%ld %d %s\n", gettimeday() - ph->data->start_time, ph->id, msg);
-	pthread_mutex_unlock(&ph->data->print);
+	sem_post(ph->data->print);
 }
 
 void	ft_sleep( unsigned long timetodo)
@@ -36,40 +53,4 @@ void	ft_sleep( unsigned long timetodo)
 	time = gettimeday();
 	while (gettimeday() - time < timetodo)
 		usleep(50);
-}
-
-void	eat(t_philos *philo)
-{
-	pthread_mutex_lock(philo->fork);
-	printmessege(philo, "has taken a fork");
-	pthread_mutex_lock(philo->next_fork);
-	printmessege(philo, "has taken a fork");
-	printmessege(philo, "is eating");
-	ft_sleep(philo->data->tm_toeat);
-	pthread_mutex_unlock(philo->next_fork);
-	pthread_mutex_unlock(philo->fork);
-	pthread_mutex_lock(&philo->data->meal);
-	philo->last_time_eat = gettimeday();
-	philo->numb_meals++;
-	pthread_mutex_unlock(&philo->data->meal);
-}
-
-int	check_meal(t_philos **ph)
-{
-	int	i;
-	int	bol;
-
-	bol = 0;
-	i = -1;
-	pthread_mutex_lock(&ph[0]->data->meal);
-	while (++i < ph[0]->data->numb_philos)
-	{
-		if (ph[0]->data->numb_to_eat >= ph[i]->numb_meals)
-			bol = 1;
-	}
-	pthread_mutex_unlock(&ph[0]->data->meal);
-	if (!bol)
-		return (1);
-	else
-		return (0);
 }

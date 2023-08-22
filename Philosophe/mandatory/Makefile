@@ -6,7 +6,7 @@
 #    By: asabri <asabri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 02:02:05 by asabri            #+#    #+#              #
-#    Updated: 2023/08/06 17:16:12 by asabri           ###   ########.fr        #
+#    Updated: 2023/08/22 09:51:55 by asabri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -Wall -Werror -Wextra 
+FLAGS = -Wall -Werror -Wextra -fsanitize=thread
 
 RM = rm -rf
 
